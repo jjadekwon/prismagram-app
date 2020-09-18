@@ -1,24 +1,29 @@
-import { createAppContainer } from "react-navigation";
-import { createBottomTabNavigator } from "react-navigation-tabs";
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { View } from "react-native";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
-import { View } from "react-native";
 
-const TabNavigation = createBottomTabNavigator({
-  Home,
-  Search,
-  Add: {
-    screen: View,
-    navigationOptions: {
-      tabBarOnPress: () => {
-        console.log("Add");
-      },
-    },
-  },
-  Notifications,
-  Profile,
-});
+const Tab = createBottomTabNavigator();
 
-export default createAppContainer(TabNavigation);
+export default TabNavigation = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name={"Home"} component={Home} />
+      <Tab.Screen name={"Search"} component={Search} />
+      <Tab.Screen
+        name={"Add"}
+        component={View}
+        listeners={{
+          tabPress: (e) => {
+            console.log("Add");
+          },
+        }}
+      />
+      <Tab.Screen name={"Notifications"} component={Notifications} />
+      <Tab.Screen name={"Profile"} component={Profile} />
+    </Tab.Navigator>
+  );
+}
