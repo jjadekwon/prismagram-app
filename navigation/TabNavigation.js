@@ -16,14 +16,15 @@ export default TabNavigation = () => {
       <Tab.Screen
         name={"Add"}
         component={View}
-        listeners={{
+        listeners={({ navigation }) => ({
           tabPress: (e) => {
-            console.log("Add");
-          },
-        }}
+            e.preventDefault();
+            navigation.navigate("PhotoNavigation");
+          }
+        })}
       />
       <Tab.Screen name={"Notifications"} component={Notifications} />
       <Tab.Screen name={"Profile"} component={Profile} />
     </Tab.Navigator>
   );
-}
+};

@@ -3,15 +3,20 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import SelectPhoto from "../screens/Photo/SelectPhoto";
 import TakePhoto from "../screens/Photo/TakePhoto";
 import UploadPhoto from "../screens/Photo/UploadPhoto";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Tab = createMaterialTopTabNavigator();
+const PhotoTabs = () => (
+  <Tab.Navigator tabBarPosition="bottom">
+    <Tab.Screen name="SelectPhoto" component={SelectPhoto} />
+    <Tab.Screen name="TakePhoto" component={TakePhoto} />
+  </Tab.Navigator>
+);
 
-export default PhotoNavigation = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name={"SelectPhoto"} component={SelectPhoto} />
-      <Tab.Screen name={"TakePhoto"} component={TakePhoto} />
-      <Tab.Screen name={"UploadPhoto"} component={UploadPhoto} />
-    </Tab.Navigator>
-  );
-};
+const Stack = createStackNavigator();
+export default PhotoNavigation = () => (
+  <Stack.Navigator>
+    <Stack.Screen name="PhotoTabs" component={PhotoTabs} />
+    <Stack.Screen name="UploadPhoto" component={UploadPhoto} />
+  </Stack.Navigator>
+);
