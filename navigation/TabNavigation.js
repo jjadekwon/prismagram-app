@@ -1,18 +1,44 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { View, Text, TouchableOpacity } from "react-native";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+const stackFactory = (name, initialRoute, customConfig) => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name={name}
+        component={initialRoute}
+        options={{ ...customConfig }}
+      />
+    </Stack.Navigator>
+  );
+};
 
+const Tab = createBottomTabNavigator();
 export default TabNavigation = () => {
   return (
     <Tab.Navigator>
-      <Tab.Screen name={"Home"} component={Home} />
-      <Tab.Screen name={"Search"} component={Search} />
+      <Tab.Screen name={"Home"}>
+        {() =>
+          stackFactory("Home", Home, {
+            title: "Home",
+            headerRight: () => (
+              <TouchableOpacity>
+                <Text>Hello</Text>
+              </TouchableOpacity>
+            ),
+          })
+        }
+      </Tab.Screen>
+      <Tab.Screen name={"Search"}>
+        {() => stackFactory("Search", Search, { title: "Search" })}
+      </Tab.Screen>
       <Tab.Screen
         name={"Add"}
         component={View}
@@ -20,11 +46,19 @@ export default TabNavigation = () => {
           tabPress: (e) => {
             e.preventDefault();
             navigation.navigate("PhotoNavigation");
-          }
+          },
         })}
       />
-      <Tab.Screen name={"Notifications"} component={Notifications} />
-      <Tab.Screen name={"Profile"} component={Profile} />
+      <Tab.Screen name={"Notifications"}>
+        {() =>
+          stackFactory("Notifications", Notifications, {
+            title: "Notifications",
+          })
+        }
+      </Tab.Screen>
+      <Tab.Screen name={"Profile"}>
+        {() => stackFactory("Profile", Profile, { title: "Profile" })}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 };
