@@ -17,9 +17,9 @@ const Text = styled.Text``;
 
 export default ({ route, navigation }) => {
   const emailInput = useInput(
-    route.params === undefined || route.params.email === undefined
-      ? ""
-      : route.params.email
+    route.params && route.params.email
+      ? route.params.email
+      : ""
   );
   const [loading, setLoading] = useState(false);
   const requestSecretMutation = useMutation(LOG_IN, {
