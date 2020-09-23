@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Alert, TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components";
 import { useMutation } from "react-apollo-hooks";
-import * as Facebook from 'expo-facebook';
+import * as Facebook from "expo-facebook";
 import useInput from "../../hooks/useInput";
 import AuthButton from "../../components/AuthButton";
 import AuthInput from "../../components/AuthInput";
@@ -71,25 +71,28 @@ export default ({ route, navigation }) => {
       setLoading(false);
     }
   };
-  
+
   const fbLogin = async () => {
     try {
+      setLoading(true);
       await Facebook.initializeAsync({
         appId: "330789621577626",
-        appName: "Prismagrapp"
       });
-      const {
-        type,
-        token,
-      } = await Facebook.logInWithReadPermissionsAsync({
-        permissions: ["public_profile"],
+      const { type, token } = await Facebook.logInWithReadPermissionsAsync({
+        permissions: ["public_profile", "email"],
       });
       if (type === "success") {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(
-          `https://graph.facebook.com/me?access_token=${token}`
+          `https://graph.facebook.com/me?access_token=${token}&fields=id,name,first_name,last_name,email`
         );
-        Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
+        const { email, first_name, last_name } = await response.json();
+        emailInput.setValue(email);
+        fNameInput.setValue(first_name);
+        lNameInput.setValue(last_name);
+        const [username] = email.split("@");
+        usernameInput.setValue(username);
+        setLoading(false);
       } else {
         // type === 'cancel'
       }
