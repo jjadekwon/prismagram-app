@@ -19,7 +19,7 @@ const stackFactory = (name, initialRoute, customConfig) => {
         component={initialRoute}
         options={{
           ...customConfig,
-          headerStyle: {...stackStyles},
+          headerStyle: { ...stackStyles },
         }}
       />
     </Stack.Navigator>
@@ -30,6 +30,7 @@ const Tab = createBottomTabNavigator();
 export default TabNavigation = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Search"
       tabBarOptions={{
         showLabel: false,
         style: { backgroundColor: "#FAFAFA" },
@@ -64,7 +65,7 @@ export default TabNavigation = () => {
           ),
         }}
       >
-        {() => stackFactory("Search", Search, { title: "Search" })}
+        {() => stackFactory("Search", Search)}
       </Tab.Screen>
       <Tab.Screen
         name={"Add"}
