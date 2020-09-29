@@ -11,11 +11,18 @@ import NavIcon from "../components/NavIcon";
 import { stackStyles } from "./config";
 import Detail from "../screens/Detail";
 import styles from "../styles";
+import UserDetail from "../screens/UserDetail";
 
 const Stack = createStackNavigator();
 const stackFactory = (name, initialRoute, customConfig) => {
   return (
-    <Stack.Navigator screenOptions={{ headerStyle: { ...stackStyles } }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { ...stackStyles },
+        headerBackTitleVisible: false,
+        headerTintColor: styles.blackColor,
+      }}
+    >
       <Stack.Screen
         name={name}
         component={initialRoute}
@@ -28,9 +35,14 @@ const stackFactory = (name, initialRoute, customConfig) => {
         name="Detail"
         component={Detail}
         options={{
-          headerBackTitleVisible: false,
-          headerTintColor: styles.blackColor,
-          title: "Photo"
+          title: "Photo",
+        }}
+      />
+      <Stack.Screen
+        name="UserDetail"
+        component={UserDetail}
+        options={{
+          title: "User",
         }}
       />
     </Stack.Navigator>

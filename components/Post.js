@@ -8,6 +8,7 @@ import { gql } from "apollo-boost";
 import constants from "../constants";
 import styles from "../styles";
 import { useMutation } from "react-apollo-hooks";
+import { useNavigation } from "@react-navigation/native";
 
 const TOGGLE_LIKE = gql`
   mutation toggleLike($postId: String!) {
@@ -88,16 +89,17 @@ const Post = ({
       await toggleLikeMutation[0]();
     } catch (e) {}
   };
+  const navigation = useNavigation();
   return (
     <Container>
       <Header>
-        <Touchable>
+        <Touchable onPress={() => navigation.navigate("UserDetail", {username: user.username})}>
           <Image
             style={{ height: 40, width: 40, borderRadius: 20 }}
             source={{ uri: user.avatar }}
           />
         </Touchable>
-        <Touchable>
+        <Touchable onPress={() => navigation.navigate("UserDetail", {username: user.username})}>
           <HeaderUserContainer>
             <Bold>{user.username}</Bold>
             <Location>{location}</Location>
