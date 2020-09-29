@@ -3,9 +3,9 @@ import { ScrollView, RefreshControl } from "react-native";
 import styled from "styled-components";
 import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo-hooks";
-import Loader from "../components/Loader";
-import Post from "../components/Post";
-import { POST_FRAGMENT } from "../fragments";
+import Loader from "../../components/Loader";
+import Post from "../../components/Post";
+import { POST_FRAGMENT } from "../../fragments";
 
 const FEED_QUERY = gql`
   {

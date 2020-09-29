@@ -2,10 +2,10 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { View, Platform } from "react-native";
-import Home from "../screens/Home";
-import Search from "../screens/Search";
-import Notifications from "../screens/Notifications";
-import Profile from "../screens/Profile";
+import Home from "../screens/Tabs/Home";
+import Search from "../screens/Tabs/Search";
+import Notifications from "../screens/Tabs/Notifications";
+import Profile from "../screens/Tabs/Profile";
 import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
 import { stackStyles } from "./config";
@@ -41,7 +41,7 @@ const Tab = createBottomTabNavigator();
 export default TabNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Search"
+      initialRouteName="Profile"
       tabBarOptions={{
         showLabel: false,
         style: { backgroundColor: "#FAFAFA" },

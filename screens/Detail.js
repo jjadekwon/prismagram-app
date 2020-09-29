@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ScrollView } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { gql } from "apollo-boost";
 import { POST_FRAGMENT } from "../fragments";
@@ -26,8 +27,8 @@ export default ({ route, navigation }) => {
   });
 
   return (
-    <View>
+    <ScrollView>
       {loading ? <Loader /> : data && data.seeFullPost && <Post {...data.seeFullPost} />}
-    </View>
+    </ScrollView>
   );
 };
