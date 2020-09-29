@@ -3,7 +3,7 @@ import { TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import constants from "../screens/constants";
+import constants from "../constants";
 
 const SquarePhoto = ({ files = [], id }) => {
   const navigation = useNavigation();

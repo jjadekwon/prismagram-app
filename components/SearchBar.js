@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { TextInput } from "react-native";
-import constants from "../screens/constants";
+import constants from "../constants";
 import styles from "../styles";
 
 const SearchBar = ({ onChange, value, onSubmit }) => (

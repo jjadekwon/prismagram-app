@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import constants from "../constants";
-import { NavigationContainer } from "@react-navigation/native";
+import constants from "../../constants";
 import AuthButton from "../../components/AuthButton";
 
 const View = styled.View`

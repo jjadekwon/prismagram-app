@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
 import Swiper from "react-native-swiper";
 import { gql } from "apollo-boost";
-import constants from "../screens/constants";
+import constants from "../constants";
 import styles from "../styles";
 import { useMutation } from "react-apollo-hooks";
 
