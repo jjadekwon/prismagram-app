@@ -9,6 +9,7 @@ import Profile from "../screens/Profile";
 import MessagesLink from "../components/MessagesLink";
 import NavIcon from "../components/NavIcon";
 import { stackStyles } from "./config";
+import Detail from "../screens/Detail";
 
 const Stack = createStackNavigator();
 const stackFactory = (name, initialRoute, customConfig) => {
@@ -22,6 +23,7 @@ const stackFactory = (name, initialRoute, customConfig) => {
           headerStyle: { ...stackStyles },
         }}
       />
+      <Stack.Screen name="Detail" component={Detail} />
     </Stack.Navigator>
   );
 };
