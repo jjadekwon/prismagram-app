@@ -41,9 +41,9 @@ const stackFactory = (name, initialRoute, customConfig) => {
       <Stack.Screen
         name="UserDetail"
         component={UserDetail}
-        options={{
-          title: "User",
-        }}
+        options={({ route }) => ({
+          title: route.params.username,
+        })}
       />
     </Stack.Navigator>
   );
