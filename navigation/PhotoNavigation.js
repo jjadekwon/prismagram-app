@@ -24,12 +24,22 @@ const PhotoTabs = () => (
 
 const Stack = createStackNavigator();
 export default PhotoNavigation = () => (
-  <Stack.Navigator screenOptions={{ headerStyle: { ...stackStyles } }}>
+  <Stack.Navigator
+    screenOptions={{
+      headerStyle: { ...stackStyles },
+      headerTintColor: styles.blackColor,
+      headerBackTitleVisible: false,
+    }}
+  >
     <Stack.Screen
       name="PhotoTabs"
       component={PhotoTabs}
       options={{ title: "Choose Photo" }}
     />
-    <Stack.Screen name="UploadPhoto" component={UploadPhoto} />
+    <Stack.Screen
+      name="UploadPhoto"
+      component={UploadPhoto}
+      options={{ title: "Upload" }}
+    />
   </Stack.Navigator>
 );

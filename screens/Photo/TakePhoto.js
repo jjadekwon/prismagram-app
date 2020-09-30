@@ -38,7 +38,7 @@ export default ({ navigation }) => {
       setCanTakePhoto(false);
       const { uri } = await cameraRef.current.takePictureAsync({ quality: 1 });
       const asset = await MediaLibrary.createAssetAsync(uri);
-      console.log(asset);
+      navigation.navigate("UploadPhoto", { photo: asset });
     } catch (e) {
       console.log(e);
       setCanTakePhoto(true);
