@@ -28,7 +28,7 @@ export default PhotoNavigation = () => (
     <Stack.Screen
       name="PhotoTabs"
       component={PhotoTabs}
-      options={{ headerShown: false }}
+      options={{ title: "Choose Photo" }}
     />
     <Stack.Screen name="UploadPhoto" component={UploadPhoto} />
   </Stack.Navigator>
