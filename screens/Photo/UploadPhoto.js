@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { gql } from "apollo-boost";
 import { Alert, Image, ActivityIndicator } from "react-native";
 import styles from "../../styles";
 import constants from "../../constants";
 import useInput from "../../hooks/useInput";
+import { useMutation } from "react-apollo-hooks";
+import { FEED_QUERY } from "../Tabs/Home";
 
+const UPLOAD = gql`
+  mutation upload($caption: String!, $files: [String!]!, $location: String) {
+    upload(caption: $caption, files: $files, location: $location) {
+      id
+      caption
+      location
+    }
+  }
+`;
 const View = styled.View`
   flex: 1;
 `;
@@ -42,10 +54,12 @@ const Text = styled.Text`
 
 export default ({ route, navigation }) => {
   const [loading, setLoading] = useState(false);
-  const [fileUrl, setFileUrl] = useState("");
   const photo = route.params.photo;
   const captionInput = useInput("");
   const locationInput = useInput("");
+  const uploadMutation = useMutation(UPLOAD, {
+    refetchQueries: () => [{ query: FEED_QUERY }],
+  });
   const handleSubmit = async () => {
     if (captionInput.value === "" || locationInput.value === "") {
       Alert.alert("All fields are required");
@@ -59,6 +73,7 @@ export default ({ route, navigation }) => {
       uri: photo.uri,
     });
     try {
+      setLoading(true);
       const {
         data: { location },
       } = await axios.post("http://localhost:4000/api/upload", formData, {
@@ -66,9 +81,22 @@ export default ({ route, navigation }) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      setFileUrl(location);
+      const {
+        data: { upload },
+      } = await uploadMutation[0]({
+        variables: {
+          caption: captionInput.value,
+          location: locationInput.value,
+          files: [location],
+        },
+      });
+      if (upload.id) {
+        navigation.navigate("TabNavigation");
+      }
     } catch (e) {
       Alert.alert("Can't upload", "Try later");
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -53,7 +53,6 @@ const Tab = createBottomTabNavigator();
 export default TabNavigation = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Profile"
       tabBarOptions={{
         showLabel: false,
         style: { backgroundColor: "#FAFAFA" },
