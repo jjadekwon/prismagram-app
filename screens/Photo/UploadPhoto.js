@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import { Alert, Image, ActivityIndicator } from "react-native";
 import styles from "../../styles";
@@ -23,7 +24,7 @@ const STextInput = styled.TextInput`
   padding-bottom: 10px;
   border: 0px solid ${styles.lightGreyColor};
   border-bottom-width: 1px;
-  width: ${constants.width - 180};
+  width: ${constants.width - 180}px;
 `;
 
 const Button = styled.TouchableOpacity`
@@ -41,11 +42,33 @@ const Text = styled.Text`
 
 export default ({ route, navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [fileUrl, setFileUrl] = useState("");
+  const photo = route.params.photo;
   const captionInput = useInput("");
   const locationInput = useInput("");
   const handleSubmit = async () => {
     if (captionInput.value === "" || locationInput.value === "") {
       Alert.alert("All fields are required");
+    }
+    const formData = new FormData();
+    const name = photo.filename;
+    const [, type] = name.split(".");
+    formData.append("file", {
+      name,
+      type: type.toLowerCase(),
+      uri: photo.uri,
+    });
+    try {
+      const {
+        data: { path },
+      } = await axios.post("http://localhost:4000/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setFileUrl(path);
+    } catch (e) {
+      Alert.alert("Can't upload", "Try later");
     }
   };
 
@@ -53,7 +76,7 @@ export default ({ route, navigation }) => {
     <View>
       <Container>
         <Image
-          source={{ uri: route.params.photo.uri }}
+          source={{ uri: photo.uri }}
           style={{ width: 80, height: 80, marginRight: 30 }}
         />
         <Form>
